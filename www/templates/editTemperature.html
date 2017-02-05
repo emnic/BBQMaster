@@ -1,7 +1,7 @@
 <ion-view title="Edit Temperature" id="page5">
   <ion-content padding="true" class="has-header">
     <form id="editTemperature-form1" class="list">
-      <h3 id="editTemperature-heading10" style="color:#000000;">DeviceName</h3>
+      <h3 id="editTemperature-heading10" style="color:#000000;">{{deviceName}}</h3>
       <h5 id="editTemperature-heading11" style="color:#000000;">Target Temperature (&degC)</h5>
       <label class="item item-input" id="editTemperature-input1">
         <input style="text-align:center" type="text" ng-model="slider.value">
@@ -12,16 +12,16 @@
       <label class="item item-select" id="editTemperature-select1">
         <span class="input-label">Meat Category</span>
         <select ng-model="cat.meatCat" ng-options="meatCategory.categoryName for meatCategory in meatCategories">
-          <option value="">Select</option>
+          <option value="">None</option>
         </select>
       </label>
       <label ng-show="cat.meatCat" class="item item-select" id="editTemperature-select2">
-        <span class="input-label">Meat type</span>
+        <span class="input-label">Meat Type</span>
         <select ng-change="setTemp(meat.meat.temp)" ng-model="meat.meat" ng-options="meat.name for meat in cat.meatCat.meatList">
-          <option value="">Select</option>
+          <option value="">None</option>
         </select>
       </label>
-      <a ui-sref="tabsController.dashboard" id="editTemperature-button8" class="button button-positive  button-block">Save</a>
+      <a ng-click="save()" ui-sref="tabsController.dashboard" id="editTemperature-button8" class="button button-positive  button-block">Save</a>
       <a ui-sref="tabsController.dashboard" id="editTemperature-button9" class="button button-stable  button-block">Cancel</a>
     </form>
   </ion-content>

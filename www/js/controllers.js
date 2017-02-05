@@ -1,28 +1,4 @@
-testDevice1 = {'id':'1234',
-  			   'type': 'temperature',
-			   'name':'Device1',
-			   'currentTemp': 57,
-			   'targetTemp':70};
 
-testDevice2 = {'id':'4321',
-			   'type': 'temperature',
-			   'name':'Device2',
-			   'currentTemp': 60,
-			   'targetTemp':79};
-
-testDevice3 = {'id':'4444',
-			   'type': 'temperature',
-			   'name':'Device3',
-			   'currentTemp': 20,
-			   'targetTemp':99};
-
-testTimer1 = {'id': '6666',
-			  'type': 'timer',
-			  'name': 'TestTimer',
-			  'elapsedTime': '20:35:15',
-			  'timeLeft': '00:03:14'}
-
-testDevices = [testDevice1, testDevice2, testDevice3, testTimer1];
 
 
 
@@ -37,11 +13,15 @@ meatCategories = [{'categoryName': 'Beef', 'meatList': Beef},
 
 angular.module('app.controllers', [])
   
-.controller('dashboardCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('dashboardCtrl', ['$scope', '$stateParams', 'devicesService', 'deviceService',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
-	$scope.devices = testDevices;
+function ($scope, $stateParams, devicesService, deviceService) {
+	$scope.devices = devicesService.devices;
+
+	$scope.setDevice = function(device){
+		deviceService.selectedDevice = device;
+	}
 
 }])
    
@@ -69,16 +49,16 @@ function ($scope, $stateParams) {
 
 }])
       
-.controller('editTemperatureCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('editTemperatureCtrl', ['$scope', '$stateParams', 'deviceService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
-
+function ($scope, $stateParams, deviceService) {
 	$scope.slider = {};
 	$scope.meat = {};
 	$scope.cat = {};
+	$scope.deviceName = deviceService.selectedDevice.name;
 
-	$scope.slider.value = 25;
+	$scope.slider.value = deviceService.selectedDevice.targetTemp;
 
 	$scope.meatCategories = meatCategories;
 
@@ -87,7 +67,10 @@ function ($scope, $stateParams) {
 	}
 
 	$scope.clearMeatSelections = function(){
-		$scope.cat.meatCat = 'nonsense';
+		$scope.cat.meatCat = '';
+	}
+	$scope.save = function(){
+		deviceService.selectedDevice.targetTemp = $scope.slider.value;
 	}
 	
 	//if ($scope.meat.temp)
