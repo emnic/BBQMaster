@@ -1,0 +1,36 @@
+<ion-view title="Edit Temperature" id="page5">
+  <ion-content padding="true" class="has-header">
+    <form id="editTemperature-form1" class="list">
+      <h3 id="editTemperature-heading10" style="color:#000000;">DeviceName</h3>
+      <h5 id="editTemperature-heading11" style="color:#000000;">Target</h5>
+      <label class="item item-input" id="editTemperature-input1">
+        <span class="input-label">Temp</span>
+        <input type="number" placeholder="23">
+      </label>
+      <ion-item class="range range-positive" id="editTemperature-range1">Temp
+        <input type="range" value="100" min="0" max="200" step="1">
+      </ion-item>
+      <label class="item item-select" id="editTemperature-select1">
+        <span class="input-label">Category</span>
+        <select>
+          <option>Beef</option>
+          <option>Pork</option>
+          <option>Chicken</option>
+          <option>Fish</option>
+          <option>Lamb</option>
+          <option>Wildlife</option>
+        </select>
+      </label>
+      <label class="item item-select" id="editTemperature-select2">
+        <span class="input-label">Meat type</span>
+        <select>
+          <option>Porkshops</option>
+          <option>Chickenleg</option>
+          <option>Beef</option>
+          <option>Fish</option>
+        </select>
+      </label>
+      <a ui-sref="tabsController.dashboard" id="editTemperature-button8" class="button button-positive  button-block">Save</a>
+    </form>
+  </ion-content>
+</ion-view>
