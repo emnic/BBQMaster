@@ -2,35 +2,27 @@
   <ion-content padding="true" class="has-header">
     <form id="editTemperature-form1" class="list">
       <h3 id="editTemperature-heading10" style="color:#000000;">DeviceName</h3>
-      <h5 id="editTemperature-heading11" style="color:#000000;">Target</h5>
+      <h5 id="editTemperature-heading11" style="color:#000000;">Target Temperature (&degC)</h5>
       <label class="item item-input" id="editTemperature-input1">
-        <span class="input-label">Temp</span>
-        <input type="number" placeholder="23">
+        <input style="text-align:center" type="text" ng-model="slider.value">
       </label>
-      <ion-item class="range range-positive" id="editTemperature-range1">Temp
-        <input type="range" value="100" min="0" max="200" step="1">
+      <ion-item class="range range-positive" id="editTemperature-range1">
+        <input ng-change="clearMeatSelections()" type="range" ng-model="slider.value" min="0" max="200" step="1">
       </ion-item>
       <label class="item item-select" id="editTemperature-select1">
-        <span class="input-label">Category</span>
-        <select>
-          <option>Beef</option>
-          <option>Pork</option>
-          <option>Chicken</option>
-          <option>Fish</option>
-          <option>Lamb</option>
-          <option>Wildlife</option>
+        <span class="input-label">Meat Category</span>
+        <select ng-model="cat.meatCat" ng-options="meatCategory.categoryName for meatCategory in meatCategories">
+          <option value="">Select</option>
         </select>
       </label>
-      <label class="item item-select" id="editTemperature-select2">
+      <label ng-show="cat.meatCat" class="item item-select" id="editTemperature-select2">
         <span class="input-label">Meat type</span>
-        <select>
-          <option>Porkshops</option>
-          <option>Chickenleg</option>
-          <option>Beef</option>
-          <option>Fish</option>
+        <select ng-change="setTemp(meat.meat.temp)" ng-model="meat.meat" ng-options="meat.name for meat in cat.meatCat.meatList">
+          <option value="">Select</option>
         </select>
       </label>
       <a ui-sref="tabsController.dashboard" id="editTemperature-button8" class="button button-positive  button-block">Save</a>
+      <a ui-sref="tabsController.dashboard" id="editTemperature-button9" class="button button-stable  button-block">Cancel</a>
     </form>
   </ion-content>
 </ion-view>
