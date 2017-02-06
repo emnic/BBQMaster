@@ -1,18 +1,18 @@
-<ion-view title="Edit Device" id="page10">
+<ion-view title="Edit {{device.name}}" id="page10">
   <ion-content padding="true" class="has-header">
     <form id="editDevice-form5" class="list">
       <label class="item item-input" id="editDevice-input6">
-        <span class="input-label">Name</span>
-        <input type="text" placeholder="">
+        <span class="input-label">Name:</span>
+        <input type="text" placeholder="{{device.name}}">
       </label>
     </form>
-    <h4 id="editDevice-heading17" style="color:#000000;">Gadget type</h4>
+    <h4 id="editDevice-heading17" style="color:#000000;">Device Type</h4>
     <ion-list id="editDevice-list2">
-      <ion-radio id="editDevice-radio3">Timer</ion-radio>
-      <ion-radio id="editDevice-radio4">Temp sensor</ion-radio>
-      <ion-item id="editDevice-list-item7">Item 1</ion-item>
-      <ion-item id="editDevice-list-item8">Item 2</ion-item>
-      <ion-item id="editDevice-list-item9">Item 3</ion-item>
+      <ion-radio ng-model="device.type" ng-value="'timer'" id="editDevice-radio3">Timer</ion-radio>
+      <ion-radio ng-model="device.type" ng-value="'temperature'" id="editDevice-radio4">Temp sensor</ion-radio>
+      <div ng-repeat="sensor in sensors">
+        <ion-item ng-show="device.type==='temperature'" id="addDevice-list-item4">{{sensor.id}}</ion-item>
+      </div>
     </ion-list>
     <a ui-sref="tabsController.deleteDevice" id="editDevice-button17" style="text-align:right;" class="button button-light  button-block icon-right ion-android-delete">Remove</a>
     <a ui-sref="tabsController.dashboardDevices" id="editDevice-button15" class="button button-positive  button-block">Save</a>

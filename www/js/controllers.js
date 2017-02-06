@@ -1,5 +1,5 @@
 
-
+tempSensors = [{'id': 'Sens1'}, {'id': 'Sens2'}, {'id': 'Sens3'}];
 
 
 Beef = [{'name': 'Beef', 'temp': 50}, {'name': 'Entrecote', 'temp': 35}];
@@ -25,12 +25,15 @@ function ($scope, $stateParams, devicesService, deviceService) {
 
 }])
    
-.controller('dashboardDevicesCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('dashboardDevicesCtrl', ['$scope', '$stateParams', 'devicesService', 'deviceService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, devicesService, deviceService) {
+	$scope.devices = devicesService.devices;
 
-
+	$scope.setDevice = function(device){
+		deviceService.selectedDevice = device;
+	}
 }])
    
 .controller('graphsCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
@@ -85,27 +88,47 @@ function ($scope, $stateParams) {
 
 }])
    
-.controller('addDeviceCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('addDeviceCtrl', ['$scope', '$stateParams', 'devicesService',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, devicesService) {
+	$scope.sensors = tempSensors;
+	$scope.device = {};
 
+	var device = {'id':'4444',
+	   'type': 'temperature',
+	   'name': 'noname',
+	   'currentTemp': 10,
+	   'targetTemp': 10};
+
+	$scope.save = function(){
+		device.type = $scope.device.type;
+		device.name = $scope.device.name;
+
+		devicesService.devices.push(device);
+	}
+}])
+   
+.controller('editDeviceCtrl', ['$scope', '$stateParams', 'deviceService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams, deviceService) {
+	$scope.sensors = tempSensors;
+	$scope.device = {};
+	$scope.device.type = deviceService.selectedDevice.type;
+	$scope.device.name = deviceService.selectedDevice.name;
 
 }])
    
-.controller('editDeviceCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('deleteDeviceCtrl', ['$scope', '$stateParams', 'devicesService', 'deviceService',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, devicesService, deviceService) {
 
+	$scope.delete = function(){
+		var index = devicesService.devices.indexOf(deviceService.selectedDevice);
 
-}])
-   
-.controller('deleteDeviceCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
-
-
+		devicesService.devices.splice(index, 1);
+	}
 }])
  

@@ -32,7 +32,6 @@ angular.module('app.services', [])
 }])
 
 .service('deviceService', [function(){
-	console.log(this.selectedDevice)
 	this.selectedDevice;
 }])
 
