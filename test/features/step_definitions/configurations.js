@@ -3,8 +3,6 @@ var chai_as_promised = require('chai-as-promised');
 chai.use(chai_as_promised);
 var expect = chai.expect;
 
-var buttonText = '';
-
 module.exports = function() {
     this.Given(/^I'm in the settings menu for devices$/, function (callback) {
      browser.get('http://localhost:8100/#/page1/dashboarddevices');
