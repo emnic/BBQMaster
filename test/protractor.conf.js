@@ -11,7 +11,7 @@ exports.config = {
 
   cucumberOpts: {
     require: './features/step_definitions/*.js',
-    tags: false,
+    tags: ['@wip'],
     format: 'pretty',
     profile: false,
     'no-source': true
