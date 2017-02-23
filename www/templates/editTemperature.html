@@ -11,13 +11,13 @@
       </ion-item>
       <label class="item item-select" id="editTemperature-select1">
         <span class="input-label">Meat Category</span>
-        <select ng-model="cat.meatCat" ng-options="meatCategory.categoryName for meatCategory in meatCategories">
+        <select id="meatCatDropdown" ng-model="cat.meatCat" ng-options="meatCategory.categoryName for meatCategory in meatCategories">
           <option value="">None</option>
         </select>
       </label>
       <label ng-show="cat.meatCat" class="item item-select" id="editTemperature-select2">
         <span class="input-label">Meat Type</span>
-        <select ng-change="setTemp(meat.meat.temp)" ng-model="meat.meat" ng-options="meat.name for meat in cat.meatCat.meatList">
+        <select id="meatTypeDropdown" ng-change="setTemp(meat.meat.temp)" ng-model="meat.meat" ng-options="meat.name for meat in cat.meatCat.meatList">
           <option value="">None</option>
         </select>
       </label>
