@@ -4,16 +4,16 @@
       <a ng-click="setDevice(device)" ui-sref="tabsController.editTemperature" id="dashboard-button1" style="font-size:25px;text-align:left;border-radius:10px 10px 10px 10px;" class="button button-light button-small button-block icon-right ion-edit">{{device.name}}</a>
       <div class="row">
         <div class="col" ng-show="device.type==='temperature'">Current
-          <br> {{device.currentTemp}}
+          <br> <span id="currentTemp">{{device.currentTemp}}</span>
         </div>
         <div class="col" ng-show="device.type==='timer'">Elapsed
-          <br> {{device.elapsedTime}}
+          <br> <span id="currentTime">{{device.elapsedTime}}</span>
         </div>
         <div class="col" ng-show="device.type==='temperature'">Target
-          <br> {{device.targetTemp}}
+          <br> <span id="targetTemp">{{device.targetTemp}}</span>
         </div>
         <div class="col" ng-show="device.type==='timer'">Elapsed
-          <br> {{device.timeLeft}}
+          <br> <span id="timeLeft">{{device.timeLeft}}</span>
         </div>
       </div>
     </div>

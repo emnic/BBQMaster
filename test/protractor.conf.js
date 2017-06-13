@@ -11,7 +11,7 @@ exports.config = {
 
   cucumberOpts: {
     require: './features/step_definitions/*.js',
-    tags: ['@wip'],
+    tags: ['@bbqsession'],
     format: 'pretty',
     profile: false,
     'no-source': true
