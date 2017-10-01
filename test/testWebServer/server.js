@@ -2,6 +2,7 @@
 
 const express = require('express');
 var bodyParser = require('body-parser')
+var cors = require('cors')
 var nextResponse = "No response defined";
 
 // Constants
@@ -9,6 +10,7 @@ const PORT = 8080;
 
 // App
 const app = express();
+app.use(cors())
 
 // create application/json parser 
 var jsonParser = bodyParser.json()
@@ -20,7 +22,7 @@ app.get('/connectionstatus', function (req, res) {
     res.send("The server is alive");
 });
 
-app.get('/nextresponse', function (req, res) {
+app.get('/temperature', function (req, res) {
     nextResponseFetched = true;
     console.log('get nextresponse was called. Returned: ' + nextResponse);
     res.json({"url":req.url, "nextResponse":nextResponse});

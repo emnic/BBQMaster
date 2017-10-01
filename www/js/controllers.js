@@ -13,16 +13,46 @@ meatCategories = [{'categoryName': 'Beef', 'meatList': Beef},
 
 angular.module('app.controllers', [])
   
-.controller('dashboardCtrl', ['$scope', '$stateParams', 'devicesService', 'deviceService',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('dashboardCtrl', ['$scope', '$stateParams', 'devicesService', 'deviceService', 'temperatureService', '$http', '$interval', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, devicesService, deviceService) {
+function ($scope, $stateParams, devicesService, deviceService, temperatureService, $http, $interval) {
+
 	$scope.devices = devicesService.devices;
+	
 
 	$scope.setDevice = function(device){
 		deviceService.selectedDevice = device;
 	}
 
+	var startedInterval;
+	var pollInterval = 15; //sec
+
+	$scope.startPoll = function(num) {
+	    if (angular.isDefined(startedInterval)) {
+	        return;
+	    }
+
+	    startedInterval = $interval(function() {
+	    	temperatureService.getTemperature();
+	    	console.log(temperatureService.temperature)
+	    	$scope.devices[0].currentTemp = temperatureService.temperature;
+	    }, pollInterval * 1000);
+	};
+
+	$scope.stopPoll = function() {
+	    if (angular.isDefined(startedInterval)){
+	        $interval.cancel(startedInterval);
+	        startedInterval = undefined;
+	    }
+	};
+
+	$scope.$on('$destroy', function() {
+	    $scope.stopPoll();
+	});
+
+	var num = Math.random();
+	$scope.startPoll(num);
 }])
    
 .controller('dashboardDevicesCtrl', ['$scope', '$stateParams', 'devicesService', 'deviceService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller

@@ -17,6 +17,11 @@ angular.module('app.routes', [])
         templateUrl: 'templates/dashboard.html',
         controller: 'dashboardCtrl'
       }
+    },
+    resolve: {
+      resolvedTemperatures: ['temperatureService', function(temperature){
+        return temperature.getTemperature();
+      }]
     }
   })
 

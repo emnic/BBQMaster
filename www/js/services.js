@@ -31,6 +31,22 @@ angular.module('app.services', [])
   }
 }])
 
+.factory('temperatureService', ['$http', function($http){
+            var o = {
+                temperature: 0,
+            };
+
+            o.getTemperature = function(temperature) {
+
+
+                return $http.get('http://localhost:30302/temperature').success(function(data){
+                    o.temperature = angular.copy(data.nextResponse);
+                });
+            };
+
+            return o;
+}])
+
 .service('deviceService', [function(){
 	this.selectedDevice;
 }])
